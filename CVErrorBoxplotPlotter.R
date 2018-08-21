@@ -5,7 +5,7 @@ if (is.na(args[1]) == T || is.na(args[2]) == T ){
   quit(status=1)
 }
 input <- args[1]
-output <- paste0(sub(x=args[2], replacement="", pattern=".png"),".png") ## Ensure output name will have one '.png' suffix
+output <- paste0(sub(x=args[2], replacement="", pattern=".png"),".png") ## Will ignore '.png' suffix if provided by user
 
 ## CV error distribution for the top K replicates
 CVs = read.table(input, header=T)

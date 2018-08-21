@@ -17,7 +17,7 @@ colourFile <- args[2]
 if (is.na(args[3]) == T) {
   output <- "OutputPlot"
 } else {
-  output <- output <- sub(x=args[3], replacement="", pattern=".pdf") ## Ensure output name will have one '.pdf' suffix
+  output <- output <- sub(x=args[3], replacement="", pattern=".pdf") ## Will ignore '.pdf' suffix if provided by user
 
 }
 
