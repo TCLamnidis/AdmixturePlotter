@@ -80,3 +80,8 @@ ggplot(long_data, aes(x=Ind , y=value, fill=clr)) +
   ggsave(filename = paste0(output,".pdf"),
          width=50, height=20,
          units="cm")
+ 
+if (file.exists("Rplots.pdf") && output != "Rplots") {
+    invisible(file.remove("Rplots.pdf"))
+}
+
