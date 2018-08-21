@@ -17,7 +17,8 @@ colourFile <- args[2]
 if (is.na(args[3]) == T) {
   output <- "OutputPlot"
 } else {
-  output <- args[3]
+  output <- output <- sub(x=args[3], replacement="", pattern=".pdf") ## Ensure output name will have one '.pdf' suffix
+
 }
 
 ## read in the colour vectors for each K
