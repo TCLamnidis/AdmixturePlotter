@@ -69,6 +69,7 @@ ggplot(long_data, aes(x=Ind , y=value, fill=clr)) +
   ylab("K=") +
   theme_minimal() +
   theme(legend.position = "none", ## No legend
+        text = element_text(family="Helvetica"),
         # axis.text.x = element_text(angle = 90, hjust = 1, size = 6),
         strip.text.x =element_text(angle = 90, hjust = 0, size = 4), ## Rotate and resize X axis strip text (Pop Names)
         strip.text.y = element_text(angle = 180), ## Rotate Y axis strip text (K value)
