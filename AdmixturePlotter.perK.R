@@ -7,7 +7,7 @@ library(readr)
 args <- commandArgs(TRUE)
 ## If no input is given, script will exit and provide Usage information.
 if (is.na(args[1]) == T || is.na(args[2]) == T ){
-  print("Usage: Rscript AdmixturePlotter.R input colourfile [output plot] [pop order]")
+  print("Usage: Rscript AdmixturePlotter.R input colourfile [output plot] [pop order] [remove]")
   quit(status=1)
 }
 input <- args[1]
@@ -56,6 +56,10 @@ if (is.na(args[4]) == F) {
 col <- as.character(long_data$clr)
 names(col) <- as.character(long_data$clr)
 
+if(is.na(args[5])== F){
+  long_data <- drop_na(long_data, 'Pop_f')
+}
+
 ## Plot the value of each component(y) per individual(x).
 ## 'clr' is also the categorical variable, which is ok since each category will be seen once per K.
 ggplot(long_data, aes(x=Ind , y=value, fill=clr)) +
@@ -88,7 +92,8 @@ ggplot(long_data, aes(x=Ind , y=value, fill=clr)) +
              space = "free",
              switch = "y") + ## switches the labels of the Y-axis so it is plotted to the left ([2:15])
   ## Saves the plot as a pdf with specified size.
-  ggsave(filename = paste0(output,".pdf"),
+  ggsave(filename = paste0(output,".pdf"), 
+         limitsize=F,
          width=50, height=20,
          units="cm")
  
