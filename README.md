@@ -60,3 +60,6 @@ plotted populations, one population per line. the path to ths list should be pro
 ```bash
 AdmixturePlotter.perK.R SampleData.input.txt ExampleColourList.txt SamplePlot PopOrder.txt
 ```
+
+It is then possible to make the colours of components consistent across the different K values by changing the colour associated with 
+each component at the specific at each K value in the colour definition file. For example changing `clr3 <- c(c1,c2,c3)` to `clr3 <- c(c3,c2,c1)` will swap the colours associated with components `3:1` and `3:3` around.
