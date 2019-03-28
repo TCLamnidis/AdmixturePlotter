@@ -27,9 +27,18 @@ fix_colours <- function (K, Kmin) {
   }
   
   ## If one component in the last K is the most correlated with two components on this K, 
-  ## set the latter as the added component 
+  ## find the next best correlated component, and if that is unique, assign that as the correct component.
+  ## If it is not unique, repeat the process until a unique component is found.
   if (any(duplicated(comp_order)) == T && sum(duplicated(comp_order) == 1 )){
-    comp_order[which(duplicated(comp_order))]=K
+    Condition = T
+    Top_Correlates <- c()
+    while (Condition == T){
+      ## 
+      ## until one that isn't already crrelated with another component is found.
+      Top_Correlates <- c(Top_Correlates,which.max(Cor_mat[which(duplicated(comp_order)),]))
+      comp_order[which(duplicated(comp_order))]=which.max(Cor_mat[which(duplicated(comp_order)),-Top_Correlates])
+      if (any(duplicated(comp_order)) == F) { Condition=F }
+    }
   } else if (sum(duplicated(comp_order) > 1)){
     print ("You have encountered a new type of error. 
            Please let the author of this R script know so they can implement a fix for it.")
