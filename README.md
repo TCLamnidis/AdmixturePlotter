@@ -24,12 +24,12 @@ CVErrorBoxplotPlotter.R CVErrors.input.txt CVErrorBoxPlot
 ```
 This will create a figure named **CVErrorBoxPlot.png**.
 
-# AdmixturePlotter.perK.R
-This is a script to plot ADMIXTURE output for multiple K values.  The expected input file is a space separated compound dataset of all 
-the results per component per K, with labelling of individual and population name. Once again, a header is expected. Each line 
-correctponds to one individual. The first two columns correspont to the Individual ID and population respectively. The rest of the columns 
-correspond to components within each ADMIXTURE run to be plotted, with `2:1` corresponding the component 1 of the K=2 run, `2:2` the 
-second component of that run, `3:1` the first component of the K=3 ADMIXTURE run, etc. 
+# AdmixturePlotter.R
+This is a script to plot ADMIXTURE output for multiple K values. It uses a correlation matrix between different components across
+sequential K values to (attempt to) correctly assign consistent colours across Ks. The expected input file is a space separated compound 
+dataset of all the results per component per K, with labelling of individual and population name. Once again, a header is expected. Each 
+line correctponds to one individual. The first two columns correspont to the Individual ID and population respectively. The rest of the 
+columns correspond to components within each ADMIXTURE run to be plotted, with `2:1` corresponding the component 1 of the K=2 run, `2:2` the second component of that run, `3:1` the first component of the K=3 ADMIXTURE run, etc. 
 
 Example input for K=2 to 5, for 5 individuals:
 ```
@@ -41,25 +41,47 @@ Ind4 Pop2 0.929991 0.070009 0.103765 0.011336 0.884900 0.880428 0.000010 0.01920
 Ind5 Pop3 0.933301 0.066699 0.098573 0.011919 0.889508 0.885705 0.000010 0.017836 0.096449 0.000010 0.016165 0.886247 0.001159 0.096418
 ```
 
-You are also expected to provide the script with a colour definitions file. An example colour definition file is provided at 
-`ExampleColourList.txt` that defines a set of colours up to K=20. In the first 21 lines, the colours are being defined. Lines 24-42 
-define the corespondance of each colour to each component for each K value. for Example, `clr3` is the colour vector for K=3 and 
-specifies that component `3:1` should use colour `c1`, `3:2` should use `c2` and `3:3` should use `c3`. 
+`AdmixturePlotter.R` comes with a number of options. Usage information and helptext is shown when the script is provided with the `-h` option.
+```
+  Usage: ./AdmixturePlotter.R [options]
 
-`AdmixturePlotter.perK.R` can then be ran by specifying the input data, the colour file and output file name. The output will always be 
-in pdf format.
+
+Options:
+	-h, --help
+		Show this help message and exit
+
+	-i INPUT, --input=INPUT
+		The input data file. This file should contain all components per K per indiviual for all K values.
+
+	-c COLOURLIST, --colourList=COLOURLIST
+		A file of desired colours, in R compatible formats. One colour per line.
+
+	-p POPORDER, --popOrder=POPORDER
+		A file containing one population per line in the desired order.
+
+	-o OUTPUTPLOT, --outputPlot=OUTPUTPLOT
+		The desired name of the output plot. [Default: 'OutputPlot.pdf']
+
+	-r, --remove
+		If an order list is provided, should populations not in the list be removed from the output plot?
+                     Not recommended for final figures, but can help in cases where you are trying to focus on a certain subset of your populations.
+```
+`AdmixturePlotter.R` can be ran by specifying the input data alone. The output will always be in pdf format, and will be named according to the provided `-o/--outputPlot` option. If neither of the two options is provided, the resulting figure will be named `OutputPlot.pdf`.
+
+You can provide the script with a colour definitions file with the `-c/--colourList` option. An example colour definition file is provided at `ExampleColourList.txt` that defines a set of colours up to K=20 (Colour source: Haak et al. 2015, Figure S6.3). 
+
+When no colour list is provided, the script will use the R function `rainbow()` to create an appropriate number of colours for assignment. Be warned that with large maximum K values, this may result in components being assigned colours that are visually similar to each other. 
+
+It is possible to set the order of populations in the resulting plot by using population order list. This should be a text file with all 
+plotted populations, one population per line. The path to this list should be provided using the `-p/--popOrder`. Any populations whose order is not specified in the list, but are part of the dataset, will be plotted in population "NA" at the right end of the plot. This makes it easy to check if your population order list is missing any populations from your dataset.
+
+In cases where you are trying to plot only a subset of your dataset, you can set a population order list that contains all the populations you wish to include in your plot (in the desired order) in addition to the `-r/--remove` option.
 
 ```bash
-AdmixturePlotter.perK.R SampleData.input.txt ExampleColourList.txt SamplePlot
-```
-This will create a figure named **SamplePlot.pdf**.
-
-It is possible to set the order of populations in the resulting plot by using population order list.this should be a text file with all 
-plotted populations, one population per line. the path to ths list should be provided as a fourth positional argument. Any populations whose order is not specified in the list, but are part of the datasset, will be plotted in population "NA". This makes it easy to check if your population order list is missing any populations from your dataset. 
-
-```bash
-AdmixturePlotter.perK.R SampleData.input.txt ExampleColourList.txt SamplePlot PopOrder.txt
+AdmixturePlotter.perK.R -i SampleData.input.txt -c ExampleColourList.txt -o SamplePlot -p PopOrder.txt [-r]
 ```
 
-It is then possible to make the colours of components consistent across the different K values by changing the colour associated with 
-each component at the specific at each K value in the colour definition file. For example changing `clr3 <- c(c1,c2,c3)` to `clr3 <- c(c3,c2,c1)` will swap the colours associated with components `3:1` and `3:3` around.
+The colours provided in the colour list are appointed to components by index, so it possible to change a specific colour in the output by changing the colour definition of that specific colour in the colour list.
+
+# Troubleshooting
+If you run into problems or get unexpected results, please contact the author of this script, or submit an issue via GitHub.
