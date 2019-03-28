@@ -64,7 +64,7 @@ parser <- add_option(parser, c("-i", "--input"), type='character', action="store
                      dest="input", help="The input data file. This file should contain all components per K per indiviual for all K values.")
 parser <- add_option(parser, c("-c", "--colourList"), type='character', action="store", 
                      dest="colourList", help="A file of desired colours, in R compatible formats. One colour per line.")
-parser <- add_option(parser, c("-p", "--orderList"), type="character", action='store', 
+parser <- add_option(parser, c("-p", "--popOrder"), type="character", action='store', 
                      dest='popOrder', help="A file containing one population per line in the desired order.")
 parser <- add_option(parser, c("-o", "--outputPlot"), type="character", action='store', default = "OutputPlot",
                      dest='output', help="The desired name of the output plot. [Default: '%default.pdf']")
