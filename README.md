@@ -78,7 +78,7 @@ plotted populations, one population per line. The path to this list should be pr
 In cases where you are trying to plot only a subset of your dataset, you can set a population order list that contains all the populations you wish to include in your plot (in the desired order) in addition to the `-r/--remove` option.
 
 ```bash
-AdmixturePlotter.perK.R -i SampleData.input.txt -c ExampleColourList.txt -o SamplePlot -p PopOrder.txt [-r]
+AdmixturePlotter.R -i SampleData.input.txt -c ExampleColourList.txt -o SamplePlot -p PopOrder.txt [-r]
 ```
 
 The colours provided in the colour list are appointed to components by index, so it possible to change a specific colour in the output by changing the colour definition of that specific colour in the colour list.
