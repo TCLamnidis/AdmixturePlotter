@@ -49,7 +49,9 @@ fix_colours <- function (K, Kmin) {
   return(paste0(K,":",comp_order))
 }
 
-
+pick_colour <- function(x) {
+  return(colours[x])
+}
 #### MAIN ####
 
 library(optparse)
@@ -106,15 +108,14 @@ names(raw_data) <- header ## Finally, fix the column names so that inference of 
 
 ## flatten data to long format
 long_data <- gather(raw_data, temp, value, 3:ncol(raw_data))
+## Remove raw_data from memory to reduce memory footprint.
+rm(raw_data)
 ## Split K and Component name to separate columns
-long_data <- mutate(rowwise(long_data), K=as.numeric(str_split_fixed(temp,":", 2)[[1]]))
-long_data <- mutate(rowwise(long_data), Component=as.numeric(str_split_fixed(temp,":", 2)[[2]]))
-## Remove temp column (informtion now contained in two columns.)
-long_data <- select(long_data, -temp)
+long_data <- long_data %>% separate(temp,c("K","Component"),sep=":") %>% mutate(K=as.numeric(K), Component=as.numeric(Component))
 
 ## If no colour list is provided, use rainbow() to generate the required number of colours.
-## Otherwise, read the colour definitions int a vector.
-if (is.null(args$colourList) == T){
+## Otherwise, read the colour definitions into a vector.
+if (is.null(colourFile) == T){
   colours=rainbow(Kmax)
 } else {
   colours=read_delim(colourFile,"\n", col_types = cols(),col_names = F)
@@ -123,7 +124,7 @@ if (is.null(args$colourList) == T){
 
 ## Create colour column based on colour vector.
 ## Each component in each K run is given the colour of the same index as that component from the colours list.
-long_data <- mutate(rowwise(long_data), clr=colours[Component])
+long_data <- long_data %>% mutate(clr=purrr::map(Component, pick_colour) %>% unlist)
 
 ## Set order of Pops
 ## If no OrderList is provided, then the populations are sorted alphabetically
