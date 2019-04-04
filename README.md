@@ -16,7 +16,7 @@ This is an example script for compiling the data from multiple K runs and replic
 
 `CompileData.sh` assumes a folder structure of `OUTPUT_FOLDER/K_Value/Replicate_Number/Result.Q` with a `Logs` folder within each `K_Value` folder, which contains the logfile of all replicates from the admixture runs of that K. In turn these logfiles should be named `<K_Value>_<Replicate_Number>.log`. Given that structure, one should copy and edit the script to include their own paths to their bed format data, the Eigenstrat individual file of the dataset, and the range of K values admixture was ran for. The script can then be ran to produce the correct format of data.
 
-Example directory structure within output folder, for a run of 5 replicates with K=3-4:
+Example directory structure within output folder, for a run of 5 replicates with K=2-4:
 ```bash
 /PATH/TO/MY/ADMIXTURE/OUTPUT/ $ ls -l *
 2:	## The K value for the admixture runs
