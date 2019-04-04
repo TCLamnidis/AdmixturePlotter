@@ -16,7 +16,7 @@ drwxrwsr-x 2 user group 4.0K Sep  1  2018 2/	## Output for K=2 run replicate 2
 drwxrwsr-x 2 user group 4.0K Sep  1  2018 3/	## Output for K=2 run replicate 3
 drwxrwsr-x 2 user group 4.0K Sep  1  2018 4/	## Output for K=2 run replicate 4
 drwxrwsr-x 2 user group 4.0K Sep  1  2018 5/	## Output for K=2 run replicate 5
-drwxrwsr-x 2 user group 4.0K Sep  1  2018 Logs/	## The logfiles from all replicates with this K value go in here. 
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 Logs/	## The logfiles from all replicates with this K value go in here.
 
 3:	## The K value for the admixture runs
 total 0
@@ -25,7 +25,7 @@ drwxrwsr-x 2 user group 4.0K Sep  1  2018 2/	## Output for K=3 run replicate 2
 drwxrwsr-x 2 user group 4.0K Sep  1  2018 3/	## Output for K=3 run replicate 3
 drwxrwsr-x 2 user group 4.0K Sep  1  2018 4/	## Output for K=3 run replicate 4
 drwxrwsr-x 2 user group 4.0K Sep  1  2018 5/	## Output for K=3 run replicate 5
-drwxrwsr-x 2 user group 4.0K Sep  1  2018 Logs/	## The logfiles from all replicates with this K value go in here. 
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 Logs/	## The logfiles from all replicates with this K value go in here.
 
 4:	## The K value for the admixture runs
 total 0
