@@ -120,6 +120,11 @@ CVErrorBoxplotPlotter.R CVErrors.input.txt CVErrorBoxPlot
 ```
 This will create a figure named **CVErrorBoxPlot.png**.
 
+Running the plotter without any arguments will print a short usage message:
+```
+[1] "Usage: Rscript CVErrorBoxplotPlotter.R input output"
+```
+
 # AdmixturePlotter.R
 This is a script to plot ADMIXTURE output for multiple K values. It uses a correlation matrix between different components across
 sequential K values to (attempt to) correctly assign consistent colours across Ks. The expected input file is a space separated compound 
