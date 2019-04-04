@@ -1,7 +1,93 @@
 # AdmixturePlotter
-An R script to generate plots for ADMIXTURE runs, for multiple K values. 
+An set of scripts to generate plots for ADMIXTURE runs, for multiple K values. 
 
-You can run either script without specifying any arguments to get a short usage explanation.
+# CompileData.sh
+This is an example script for compiling the data from multiple K runs and replicates into the input formats for `CVErrorBoxplotPlotter.R` and `AdmixturePlotter.R`.
+
+`CompileData.sh` assumes a folder structure of `OUTPUT_FOLDER/K_Value/Replicate_Number/Result.Q` with a `Logs` folder within each `K_Value` folder, which contains the logfile of all replicates from the admixture runs of that K. In turn these logfiles should be named `<K_Value>_<Replicate_Number>.log`. Given that structure, one should copy and edit the script to include their own paths to their bed format data, the Eigenstrat individual file of the dataset, and the range of K values admixture was ran for. The script can then be ran to produce the correct format of data.
+
+Example directory structure within output folder, for a run of 5 replicates with K=3-4:
+```bash
+/PATH/TO/MY/ADMIXTURE/OUTPUT/ $ ls -l *
+2:	## The K value for the admixture runs
+total 0
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 1/	## Output for K=2 run replicate 1
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 2/	## Output for K=2 run replicate 2
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 3/	## Output for K=2 run replicate 3
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 4/	## Output for K=2 run replicate 4
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 5/	## Output for K=2 run replicate 5
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 Logs/	## The logfiles from all replicates with this K value go in here. 
+
+3:	## The K value for the admixture runs
+total 0
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 1/	## Output for K=3 run replicate 1
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 2/	## Output for K=3 run replicate 2
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 3/	## Output for K=3 run replicate 3
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 4/	## Output for K=3 run replicate 4
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 5/	## Output for K=3 run replicate 5
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 Logs/	## The logfiles from all replicates with this K value go in here. 
+
+4:	## The K value for the admixture runs
+total 0
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 1/	## Output for K=4 run replicate 1
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 2/	## Output for K=4 run replicate 2
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 3/	## Output for K=4 run replicate 3
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 4/	## Output for K=4 run replicate 4
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 5/	## Output for K=4 run replicate 5
+drwxrwsr-x 2 user group 4.0K Sep  1  2018 Logs/	## The logfiles from all replicates with this K value go in here. 
+```
+
+And within each K result folder:
+```bash
+/PATH/TO/MY/ADMIXTURE/OUTPUT/ $ cd 2
+
+/PATH/TO/MY/ADMIXTURE/OUTPUT/2 $ ls -l *
+## These are the contents of each subfolder of the K2 runs.
+1:	## Output for K=2 run replicate 1
+total 7.7M
+-rw-rw-r-- 1 user group 3.8M Sep  1  2018 Admixture.Output.2.P
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q
+-rw-rw-r-- 1 user group  18K Sep  1  2018 Admixture.Output.2.Q_bias
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q_se
+
+2:	## Output for K=2 run replicate 2
+total 7.7M
+-rw-rw-r-- 1 user group 3.8M Sep  1  2018 Admixture.Output.2.P
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q
+-rw-rw-r-- 1 user group  18K Sep  1  2018 Admixture.Output.2.Q_bias
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q_se
+
+3:	## Output for K=2 run replicate 3
+total 7.7M
+-rw-rw-r-- 1 user group 3.8M Sep  1  2018 Admixture.Output.2.P
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q
+-rw-rw-r-- 1 user group  18K Sep  1  2018 Admixture.Output.2.Q_bias
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q_se
+
+4:	## Output for K=2 run replicate 4
+total 7.7M
+-rw-rw-r-- 1 user group 3.8M Sep  1  2018 Admixture.Output.2.P
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q
+-rw-rw-r-- 1 user group  18K Sep  1  2018 Admixture.Output.2.Q_bias
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q_se
+
+5:	## Output for K=2 run replicate 5
+total 7.7M
+-rw-rw-r-- 1 user group 3.8M Sep  1  2018 Admixture.Output.2.P
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q
+-rw-rw-r-- 1 user group  18K Sep  1  2018 Admixture.Output.2.Q_bias
+-rw-rw-r-- 1 user group  17K Sep  1  2018 Admixture.Output.2.Q_se
+
+Logs:	## The logfiles from all replicates with this K value go in here. 
+total 320K
+-rw-rw-r-- 1 user group 30K Sep  1  2018 K2_1.log	## Logfile of K=2 run, replicate 1.
+-rw-rw-r-- 1 user group 30K Sep  1  2018 K2_2.log	## Logfile of K=2 run, replicate 2.
+-rw-rw-r-- 1 user group 30K Sep  1  2018 K2_3.log	## Logfile of K=2 run, replicate 3.
+-rw-rw-r-- 1 user group 30K Sep  1  2018 K2_4.log	## Logfile of K=2 run, replicate 4.
+-rw-rw-r-- 1 user group 30K Sep  1  2018 K2_5.log	## Logfile of K=2 run, replicate 5.
+```
+
+If your folder structure does not follow this system, looking into the code is a good starting point for the commands that can be used to create the desired data.
 
 # CVErrorBoxplotPlotter.R
 This is a script to plot the CV error for multiple replicates per K value in box-and-whisker format. The expected input is a space- or 
