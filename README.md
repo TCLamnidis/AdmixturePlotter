@@ -1,6 +1,16 @@
 # AdmixturePlotter
 A set of scripts to generate plots for ADMIXTURE runs, for multiple K values. 
 
+# Dependencies
+ * R (tested on version 3.5.2 "Eggshell Igloo")
+   * optparse
+   * ggplot2
+   * dplyr
+   * tidyr
+   * stringr
+   * readr
+
+
 # CompileData.sh
 This is an example script for compiling the data from multiple K runs and replicates into the input formats for `CVErrorBoxplotPlotter.R` and `AdmixturePlotter.R`.
 
