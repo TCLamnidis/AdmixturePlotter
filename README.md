@@ -1,5 +1,5 @@
 # AdmixturePlotter
-An set of scripts to generate plots for ADMIXTURE runs, for multiple K values. 
+A set of scripts to generate plots for ADMIXTURE runs, for multiple K values. 
 
 # CompileData.sh
 This is an example script for compiling the data from multiple K runs and replicates into the input formats for `CVErrorBoxplotPlotter.R` and `AdmixturePlotter.R`.
