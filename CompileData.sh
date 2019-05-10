@@ -28,7 +28,7 @@ mv CVErrors.txt Plotting/CVErrors.txt
 
 
 ## Compile list of replicates with highest Likelihood
-for i in $(seq ${Kmin} ${Kmax}); do grep ^Logli $i/Logs/*.log | sort -nrk2 | head -n1; done >Plotting/best_runs.txt
+for i in $(seq ${Kmin} ${Kmax}); do grep -H ^Logli $i/Logs/*.log | sort -nrk2 | head -n1; done >Plotting/best_runs.txt
 
 
 ## Compile Q matrices and add ind/pop labels
