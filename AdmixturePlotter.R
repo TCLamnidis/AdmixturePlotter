@@ -38,7 +38,7 @@ fix_colours <- function(k, k_min) {
   ##   unique, assign that as the correct component.
   ## If it is not unique, repeat the process until a unique component is found.
   if (any(duplicated(component_order)) == T && 
-      sum(duplicated(component_order) == 1)) {
+      sum(duplicated(component_order)) == 1) {
     duplicate <- which(duplicated(component_order))
     condition <- T
     top_correlates <- c()
@@ -50,9 +50,9 @@ fix_colours <- function(k, k_min) {
       component_order[duplicate] <- which.max(cor_mat[duplicate, ])
       if (any(duplicated(component_order)) == F) {condition = F}
     }
-  } else if (sum(duplicated(component_order) > 1)) {
-    print ("You have encountered a new type of error. 
-           Please let the author of this R script know so they can implement a fix for it.")
+  } else if (sum(duplicated(component_order)) > 1) {
+    stop (paste0("Correlation of components failed. Usually this is caused by high CV errors for some of the components you are trying to plot. 
+Please consider limiting your input dataset to K=",k_min," to ",k-1,"."), call.=FALSE)
   }
   ## If a component hasn't been resolved yet, add it as the newest component.
   missing_component = setdiff(1:k, component_order)
