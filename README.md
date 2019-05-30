@@ -1,12 +1,22 @@
 # AdmixturePlotter
 A set of scripts to generate plots for ADMIXTURE runs, for multiple K values. 
 
+# Dependencies
+ * R (tested on version 3.5.2 "Eggshell Igloo")
+   * optparse
+   * ggplot2
+   * dplyr
+   * tidyr
+   * stringr
+   * readr
+
+
 # CompileData.sh
 This is an example script for compiling the data from multiple K runs and replicates into the input formats for `CVErrorBoxplotPlotter.R` and `AdmixturePlotter.R`.
 
 `CompileData.sh` assumes a folder structure of `OUTPUT_FOLDER/K_Value/Replicate_Number/Result.Q` with a `Logs` folder within each `K_Value` folder, which contains the logfile of all replicates from the admixture runs of that K. In turn these logfiles should be named `<K_Value>_<Replicate_Number>.log`. Given that structure, one should copy and edit the script to include their own paths to their bed format data, the Eigenstrat individual file of the dataset, and the range of K values admixture was ran for. The script can then be ran to produce the correct format of data.
 
-Example directory structure within output folder, for a run of 5 replicates with K=3-4:
+Example directory structure within output folder, for a run of 5 replicates with K=2-4:
 ```bash
 /PATH/TO/MY/ADMIXTURE/OUTPUT/ $ ls -l *
 2:	## The K value for the admixture runs
@@ -109,6 +119,11 @@ Example input for K=2 to 5 (space separated):
 CVErrorBoxplotPlotter.R CVErrors.input.txt CVErrorBoxPlot
 ```
 This will create a figure named **CVErrorBoxPlot.png**.
+
+Running the plotter without any arguments will print a short usage message:
+```
+[1] "Usage: Rscript CVErrorBoxplotPlotter.R input output"
+```
 
 # AdmixturePlotter.R
 This is a script to plot ADMIXTURE output for multiple K values. It uses a correlation matrix between different components across
