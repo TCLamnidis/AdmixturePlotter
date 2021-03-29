@@ -19,8 +19,8 @@ Kmax=17 #The maximum number of Ks you ran
 ## Compile CV Errors
 touch CVErrors.txt
 for i in $(seq ${Kmax} -1 ${Kmin}); do #seq doesn’t like backwards counting on the clusters, so giving the increment of "-1" fixes the problem.
-	(echo $i; grep CV $i/Logs/* | cut -f 4 -d " ") | paste  -d " " - CVErrors.txt > temp_CVErrors
-	mv temp_CVErrors CVErrors.txt
+  (echo $i; grep CV $i/Logs/* | cut -f 4 -d " ") | paste  -d " " - CVErrors.txt > temp_CVErrors
+  mv temp_CVErrors CVErrors.txt
 done
 while read r; do echo ${r% } >>temp_CVErrors; done <CVErrors.txt
 mv temp_CVErrors CVErrors.txt
@@ -34,19 +34,19 @@ for i in $(seq ${Kmin} ${Kmax}); do grep -H ^Logli $i/Logs/*.log | sort -nrk2 | 
 ## Compile Q matrices and add ind/pop labels
 unset runs
 for i in $(seq ${Kmin} ${Kmax}); do
-	X=$(grep "K${i}\_" Plotting/best_runs.txt | cut -d "K" -f2 | cut -d ":" -f1 )
-	K=$(echo ${X} | cut -f1 -d "_"); Rep=$(echo ${X} | cut -d "_" -f 2)
-	runs+="$K/${Rep%.log}/$(basename ${bedFile} .bed).$K.Q "
+  X=$(grep "K${i}\_" Plotting/best_runs.txt | cut -d "K" -f2 | cut -d ":" -f1 )
+  K=$(echo ${X} | cut -f1 -d "_"); Rep=$(echo ${X} | cut -d "_" -f 2)
+  runs+="$K/${Rep%.log}/$(basename ${bedFile} .bed).$K.Q "
 done
 paste -d " " ${runs} >Plotting/temp_data.txt
 
 
 ## Create compiled Q matrix header.
 for i in $(seq ${Kmin} ${Kmax}); do
-	for x in $(seq 1 ${i}); do
-		echo -n "${i}:${x}" >>Plotting/temp_header.txt
-		echo -n " " >>Plotting/temp_header.txt
-	done
+  for x in $(seq 1 ${i}); do
+    echo -n "${i}:${x}" >>Plotting/temp_header.txt
+    echo -n " " >>Plotting/temp_header.txt
+  done
 done
 
 
