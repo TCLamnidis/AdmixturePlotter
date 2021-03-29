@@ -52,7 +52,11 @@ fix_colours <- function(k, k_min) {
     }
   } else if (sum(duplicated(component_order)) > 1) {
     stop (paste0("Correlation of components failed. Usually this is caused by high CV errors for some of the components you are trying to plot. 
-Please consider limiting your input dataset to K=",k_min," to ",k-1,"."), call.=FALSE)
+Please consider limiting your input dataset to K=",k_min," to ",k-1,".
+
+You can use this command to extract the suggested columns from the input file:
+    cut -d ' ' -f 1-",sum(seq(k_min,k_max-1))+2,"
+    "), call.=FALSE)
   }
   ## If a component hasn't been resolved yet, add it as the newest component.
   missing_component = setdiff(1:k, component_order)
