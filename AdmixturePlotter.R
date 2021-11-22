@@ -234,12 +234,12 @@ ggplot(long_data, aes(x = Ind , y = value, fill = clr)) +
              scales = "free_x",
              space = "free",
              ## switchlabels of the Y-axis so they is plotted to the left (K=).
-             switch = "y") +
-  ## Saves the plot as a pdf with specified size.
-  ggsave(filename = paste0(output,".pdf"), 
-         limitsize = F,
-         width = 50, height = 20,
-         units = "cm")
+             switch = "y")
+## Saves the plot as a pdf with specified size.
+ggsave(filename = paste0(output,".pdf"), 
+        limitsize = F,
+        width = 50, height = 20,
+        units = "cm")
 
 ## Silently remove the Rplots.pdf file, if one was created.
 if (file.exists("Rplots.pdf") && output !=  "Rplots") {
