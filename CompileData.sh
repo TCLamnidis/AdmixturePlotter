@@ -62,7 +62,7 @@ echo "Ind Pop" >Plotting/temp_pop_labels.txt; awk '{print $1,$3}' $IndFile >>Plo
 ## Put together header, data and Pop labels to create compiled data table
 cd ${fn0}/Plotting
 cat temp_header.txt temp_data.txt >temp_compound.data.txt
-paste temp_pop_labels.txt temp_compound.data.txt -d " " >compound.labelled.QperK.txt 
+paste -d " " temp_pop_labels.txt temp_compound.data.txt  >compound.labelled.QperK.txt 
 
 ## Clean up
 rm temp_*
